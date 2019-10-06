@@ -1,10 +1,19 @@
-<h1><%= @user.username %></h1>
+<div class="breadcrumb">@<%= @user.username %></div>
 <ul>
   <% for shelf in @shelves %>
-    <li><%= link_to shelf.name, shelf_path(:username => @user.username, :shelfname => shelf.name) %></li>
+    <li>
+      <%= link_to shelf.name, shelf_path(:username => @user.username, :shelfname => shelf.name) %>
+      (<%= shelf.books.count %>)
+    </li>
   <% end %>
+  <li><%= link_to "+ New Shelf", "/" %></li>
 </ul>
+
+<% if @user == current_user  %>
 <%= form_with(url: {action: :upload_csv}, multipart: true) do %>
-  <%= file_field_tag 'books' %> %
+  <label for="books">Import from Goodreads</label><br />
+  <%= file_field_tag 'books' %>
   <%= submit_tag %>
+<% end %>
+
 <% end %>

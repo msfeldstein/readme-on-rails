@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(username: params[:username])
     @postings = @user.postings
     @shelves = @user.shelves.where.not(:name => nil)
   end
@@ -24,17 +24,18 @@ class UsersController < ApplicationController
       book = Book.new
       book.title = row["Title"]
       book.author = row["Author"]
-      shelf = user.shelves.find_or_create_by(name: row["Exclusive Shelf"])
+      shelf_name = row["Exclusive Shelf"]
+      shelf_name = shelf_name.titlecase.sub "-", " "
+      shelf = user.shelves.find_or_create_by(name: shelf_name)
       posting = shelf.postings.new
       posting.book = book
       posting.shelf = shelf
       posting.user = user
       success = posting.save!
-      print "Succes? #{success} "
-      shelf.save
-      book.save
+      shelf.save!
+      book.save!
     end
-    user.save
+    user.save!
     redirect_to current_user
   end 
 end
