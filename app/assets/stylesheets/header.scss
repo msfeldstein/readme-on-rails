@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  flex-direction: row;
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  a {
+    display: block;
+    flex-grow: 0;
+    margin: 8px;
+    color: black;
+    text-decoration: none;
+  }
+}

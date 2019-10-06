@@ -1,0 +1,23 @@
+
+<%= form_for(@book) do |book_form| %>
+  <p>
+    <%= book_form.label :title %><br>
+    <%= book_form.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= book_form.label :author %><br>
+    <%= book_form.text_field :author %>
+  </p>
+  
+  <p>
+    <%= book_form.fields_for :postings do |posting_form| %>
+      <%= posting_form.label :quote %>
+      <%= posting_form.text_area :quote %>
+    <% end %>
+
+  </p>
+  <p>
+    <%= book_form.submit %>
+  </p>
+<% end %>

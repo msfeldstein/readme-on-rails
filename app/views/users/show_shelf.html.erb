@@ -1,0 +1,17 @@
+<h1>
+  <%= link_to @user.username, @user %>
+  /
+  <%= @shelf.name %>
+</h1>
+<ul>
+  <% for posting in @postings %>
+    <li>
+    <%= link_to posting.book.title, posting.book %>
+    by
+    <%= posting.book.author %>
+    <% if posting.quote %>
+      <pre><%= posting.quote %></pre>
+    <% end %>
+    </li>
+  <% end %>
+</ul>

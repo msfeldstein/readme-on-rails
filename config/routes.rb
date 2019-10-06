@@ -1,3 +1,19 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'users/index'
+  get 'users/show'
+  get 'login', to: "login#index"
+  get 'welcome/index'
+  resources :books
+  resources :users do 
+    resources :shelves
+    resources :postings
+  end
+  get ":username/shelf/:shelfname", to: "users#show_shelf", as: "shelf"
+  get "post/:id", to: "postings#show"
+  get "posts", to: "postings#index"
+  post "users/upload-csv", to: "users#upload_csv"
+
+  root 'welcome#index'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
 end
