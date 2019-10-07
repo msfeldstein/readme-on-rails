@@ -5,7 +5,13 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :postings
   
   def self.find_or_create_from_auth_hash(auth_hash)
-    user = where(provider: auth_hash.provider, uid: auth_hash.uid).first_or_create
+    user = where(provider: auth_hash.provider, uid: auth_hash.uid).first
+    if !user
+      user = create(provider: auth_hash.provider, uid: auth_hash.uid)
+      ["Currently Reading", "Read", "To Read"].each do |shelf_name|
+        user.shelves.create(name: shelf_name)
+      end
+    end
     user.update(
       username: auth_hash.info.nickname,
       avatar: auth_hash.info.image,
