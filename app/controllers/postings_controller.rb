@@ -6,13 +6,16 @@ class PostingsController < ApplicationController
     @post = Posting.find(params[:id])
     @book = @post.book
     @user = @post.user
+    if current_user
+      @shelf_names = current_user.shelves.map { |shelf| shelf.name}
+      @shelf_names << ["+ New Shelf", -1]
+    end
   end
 
   def create
-    post_params = params.require(:posting).permit(:quote, book_attributes: [:title, :author], shelf_attributes: [:name])
-    @posting = Posting.new(post_params)
+    @posting = Posting.new(posting_params)
     @posting.user = current_user
-    shelf_name = post_params[:shelf_attributes][:name]
+    shelf_name = posting_params[:shelf_attributes][:name]
     if (shelf_name == "-1")
       shelf_name = new_shelf_params[:new_shelf_name]
     end
@@ -21,8 +24,21 @@ class PostingsController < ApplicationController
     redirect_to user_posting_path(current_user, @posting)
   end
 
+  def update
+    @posting = Posting.find(params[:id])
+    shelf_name = posting_params[:shelf_attributes][:name]
+    if (shelf_name == "-1")
+      shelf_name = new_shelf_params[:new_shelf_name]
+    end
+    @posting.shelf = current_user.shelves.find_or_create_by(name: shelf_name)
+    @posting.save!
+  end
+
 
   private
+  def posting_params
+    post_params = params.require(:posting).permit(:quote, book_attributes: [:title, :author], shelf_attributes: [:name])
+  end
   def new_shelf_params
     params.permit(:new_shelf_name)
   end
