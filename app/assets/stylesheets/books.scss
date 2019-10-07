@@ -1,6 +1,10 @@
 .book-list {
   .book {
     margin-bottom: 4px;
+
+    .quote {
+      font-size: 12px;
+    }
   }
   .author {
     font-weight: lighter;
