@@ -6,7 +6,7 @@
 <div class="book-list">
   <% for posting in @postings %>
     <div class="book">
-      <%= link_to posting.book.title, posting.book %>
+      <%= link_to posting.book.title, [@user, posting] %>
       <div class="author">
         <%= posting.book.author %>
       </div>

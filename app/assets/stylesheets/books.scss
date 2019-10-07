@@ -28,3 +28,16 @@
     border-bottom: 1px solid #333;
   }
 }
+
+.book-details {
+  .title {
+    font-size: 24px;
+  }
+  .author {
+    font-size: 18px;
+  }
+  .finished-on {
+    font-size: 12px;
+    margin: 8px 0;
+  }
+}

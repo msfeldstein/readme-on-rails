@@ -1,0 +1,7 @@
+.book-details
+  .title= @book.title
+  .author= @book.author
+  - if @post.finished_on
+    .finished-on= @post.finished_on.strftime("%F")
+  .quote= @post.quote
+  .note= @post.note
