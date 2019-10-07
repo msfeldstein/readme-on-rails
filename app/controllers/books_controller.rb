@@ -5,24 +5,14 @@ class BooksController < ApplicationController
 
   def new 
     @book = Book.new
-    @book.postings.build
+    @posting = @book.postings.build
+    @shelf_names = current_user.shelves.map { |shelf| shelf.name}
+    @shelf_names << ["+ New Shelf", -1]
+
+    pp @shelf_names
   end
 
   def show
     @book = Book.find(params[:id])
-  end
-
-  def create
-    @book = Book.new(params.require(:book).permit(:title, :author))
-    @posting = Posting.new(params.require(:book).require(:postings).permit(:quote))
-    @posting.user = current_user
-    @posting.book = @book
-    @posting.save
-    redirect_to user_posting_path(current_user, @posting)
-  end
-
-  private
-  def book_params
-    params.require(:book).permit(:title, :author)
   end
 end

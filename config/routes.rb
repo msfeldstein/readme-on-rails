@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :shelves
     resources :postings
   end
+  post "shelf/create", to: "users#create_shelf", as: "create_shelf"
   get ":username/shelf/:shelfname", to: "users#show_shelf", as: "shelf"
   get "post/:id", to: "postings#show"
   get "posts", to: "postings#index"

@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_10_06_171316) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
+    t.string "isbn"
     t.text "quote"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -26,6 +27,10 @@ ActiveRecord::Schema.define(version: 2019_10_06_171316) do
     t.text "quote"
     t.integer "user_id"
     t.integer "book_id"
+    t.datetime "started_on"
+    t.datetime "finished_on"
+    t.integer "rating"
+    t.text "note"
     t.integer "shelf_id"
     t.index ["book_id"], name: "index_postings_on_book_id"
     t.index ["shelf_id"], name: "index_postings_on_shelf_id"

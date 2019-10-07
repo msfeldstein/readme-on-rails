@@ -8,3 +8,23 @@
     opacity: 0.5;
   }
 }
+
+.new_posting {
+  label {
+    float: left;
+    width: 80px;
+    font-size: 16px;
+  }
+
+  select,
+  input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    outline: none;
+    border: 0;
+    font-size: 16px;
+    border-bottom: 1px solid #333;
+  }
+}

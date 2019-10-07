@@ -1,0 +1,34 @@
+
+= form_for [current_user, @posting] do |posting_form|
+  = posting_form.fields_for :book do |book_form|
+    %p
+      = book_form.label :title
+      = book_form.text_field :title
+  
+    %p
+      = book_form.label :author
+      = book_form.text_field :author 
+  = posting_form.fields_for :shelf, Shelf.new do |shelf_form|
+    %p
+      = shelf_form.label :shelf
+      = shelf_form.select :name, @shelf_names, {}, :class => "shelf-name-select"
+    %p#new-shelf-field
+      = shelf_form.label " - "
+      = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
+  %p
+    = posting_form.label :note
+    = posting_form.text_area :note
+  %p
+    = posting_form.label :quote
+    = posting_form.text_area :quote
+  %p
+    = posting_form.submit("Post Book")
+
+:javascript
+  const shelfField = document.querySelector(".shelf-name-select")
+  const otherShelfField = document.querySelector('#new-shelf-field')
+  const update = (e) => {
+      otherShelfField.style.display = shelfField.value === "-1" ? "" : "none"
+  }
+  shelfField.addEventListener('change', update)
+  update()

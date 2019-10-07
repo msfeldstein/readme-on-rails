@@ -4,4 +4,5 @@ class Posting < ApplicationRecord
   belongs_to :shelf
 
   accepts_nested_attributes_for :book
+  accepts_nested_attributes_for :shelf
 end
