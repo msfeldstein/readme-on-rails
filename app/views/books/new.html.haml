@@ -11,7 +11,7 @@
   = posting_form.fields_for :shelf, Shelf.new do |shelf_form|
     %p
       = shelf_form.label :shelf
-      = shelf_form.select :name, @shelf_names, {}, :class => "shelf-name-select"
+      = shelf_form.select :name, options_for_select(@shelf_names, params[:shelf]), {}, :class => "shelf-name-select"
     %p#new-shelf-field
       = shelf_form.label " - "
       = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"

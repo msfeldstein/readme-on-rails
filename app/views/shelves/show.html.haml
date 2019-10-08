@@ -2,7 +2,10 @@
   = link_to "@#{@user.username}", @user
   = "/"
   = @shelf.name
+
+
 .book-list
+  = link_to "+ Add Book", new_book_path(shelf: @shelf.name), class: "add-book-button"
   - for posting in @postings
     .book
       = link_to posting.book.title, posting
