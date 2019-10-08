@@ -1,5 +1,5 @@
 
-= form_for [current_user, @posting] do |posting_form|
+= form_for [current_user, @post] do |posting_form|
   = posting_form.fields_for :book do |book_form|
     %p
       = book_form.label :title
@@ -11,7 +11,7 @@
   = posting_form.fields_for :shelf, Shelf.new do |shelf_form|
     %p
       = shelf_form.label :shelf
-      = shelf_form.select :name, @shelf_names, {}, :class => "shelf-name-select"
+      = shelf_form.select :name, options_for_select(@shelf_names, @post.shelf.name), {}, :class => "shelf-name-select"
     %p#new-shelf-field
       = shelf_form.label " - "
       = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
@@ -22,7 +22,7 @@
     = posting_form.label :quote
     = posting_form.text_area :quote
   %p
-    = posting_form.submit("Post Book")
+    = posting_form.submit("Save")
 
 :javascript
   var shelfField = document.querySelector(".shelf-name-select")
@@ -32,3 +32,4 @@
   }
   shelfField.addEventListener('change', update)
   update()
+= link_to 'Remove from shelves',  @post, method: :delete, data: {confirm: "Are you sure?"}

@@ -1,4 +1,6 @@
 class PostingsController < ApplicationController
+  before_action :load_posting
+  before_action :assert_current_user_owns, only: [:edit, :update, :destroy]
   def index
   end
 
@@ -6,10 +8,7 @@ class PostingsController < ApplicationController
     @post = Posting.find(params[:id])
     @book = @post.book
     @user = @post.user
-    if current_user
-      @shelf_names = current_user.shelves.map { |shelf| shelf.name}
-      @shelf_names << ["+ New Shelf", -1]
-    end
+    @shelf = @post.shelf
   end
 
   def create
@@ -24,6 +23,11 @@ class PostingsController < ApplicationController
     redirect_to user_posting_path(current_user, @posting)
   end
 
+  def edit
+    @shelf_names = current_user.shelves.map { |shelf| shelf.name}
+    @shelf_names << ["+ New Shelf", -1]
+  end
+
   def update
     @posting = Posting.find(params[:id])
     shelf_name = posting_params[:shelf_attributes][:name]
@@ -32,6 +36,13 @@ class PostingsController < ApplicationController
     end
     @posting.shelf = current_user.shelves.find_or_create_by(name: shelf_name)
     @posting.save!
+    redirect_to @posting
+  end
+
+  def destroy
+    @posting = Posting.find(params[:id])
+    @posting.destroy!
+    redirect_to @posting.shelf
   end
 
 
@@ -44,5 +55,13 @@ class PostingsController < ApplicationController
   end
   def book_params
     params.require(:book).permit(:title, :author)
+  end
+
+  def load_posting
+    @post = Posting.find(params[:id])
+  end
+
+  def assert_current_user_owns
+    raise ActionController::RoutingError.new('Forbidden')  unless @post.user == current_user
   end
 end

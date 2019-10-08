@@ -1,0 +1,11 @@
+.breadcrumb
+  = link_to "@#{@user.username}", @user
+  = "/"
+  = @shelf.name
+.book-list
+  - for posting in @postings
+    .book
+      = link_to posting.book.title, posting
+      .author= posting.book.author
+      - if posting.quote
+        .quote= posting.quote

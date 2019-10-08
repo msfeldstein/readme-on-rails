@@ -3,7 +3,7 @@
 %ul
   - for shelf in @shelves
     %li
-      = link_to shelf.name, shelf_path(:username => @user.username, :shelfname => shelf.name) 
+      = link_to shelf.name, shelf
       = "(#{shelf.books.count})"
   -if @user == current_user
     %li#new_shelf_button= link_to "+ New Shelf", "#"

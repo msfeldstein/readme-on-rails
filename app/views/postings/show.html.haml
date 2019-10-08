@@ -1,3 +1,7 @@
+.breadcrumb
+  = link_to "@#{@user.username}", @user
+  = "/"
+  = link_to "#{@shelf.name}", @shelf
 .book-details
   .title= @book.title
   .author= @book.author
@@ -5,11 +9,6 @@
     .finished-on= @post.finished_on.strftime("%F")
   .quote= @post.quote
   .note= @post.note
-  - if @post.user == current_user
-    = form_for([current_user, @post], remote: true, method: :patch) do |f|
-      = f.fields_for :shelf, @post.shelf do |shelf_form|
-        = shelf_form.label :shelf
-        = shelf_form.select :name, @shelf_names, :class => "shelf-name-select"
-      = f.submit "Save", :disable_with => "..."
-  - else
-    = "Shelf: #{@post.shelf.name}"
+  = "Shelf: #{@post.shelf.name}"
+- if @user == current_user
+  = link_to "Edit", edit_user_posting_path(current_user, @post)
