@@ -2,7 +2,7 @@
   <b class="logo"><%= link_to "||||||\\", root_path %></b>
   <div class="grow"></div>
   <% if current_user %>
-    <%= link_to "+", "/books/new" %> 
+    <%= link_to "+", :new_posting %> 
     <%= link_to current_user.username, current_user%>
   <% else %>
     <%= link_to "Sign in with Twitter", "/auth/twitter" %>
