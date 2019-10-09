@@ -7,11 +7,13 @@
   .author= @book.author
   - if @post.finished_on
     .finished-on= @post.finished_on.strftime("%F")
-  - for note in @post.notes
-    - if note.quote?
-      .note-group.quote= note.body
-    - if note.note?
-      .note-group.note= note.body
+  - if @post.notes.count > 0
+    .notes-title= "Notes and Quotes"
+    - for note in @post.notes
+      - if note.quote?
+        .note-group.quote= note.body
+      - if note.note?
+        .note-group.note= note.body
 
 - if @user == current_user
   = link_to "Edit", edit_user_posting_path(current_user, @post)
