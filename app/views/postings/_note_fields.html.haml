@@ -1,0 +1,12 @@
+.nested-fields.quote-block
+  = f.hidden_field :note_type
+  - if f.object.note_type == "quote"
+    .field.quote
+      %label= "Quote"
+      = f.text_area :body, rows: 5, cols: 30
+  - else
+    .field.note
+      %label= "Note"
+      = f.text_area :body, rows: 5, cols: 30
+  .delete-button
+    = link_to_remove_association "Delete", f, class: "delete-quote"

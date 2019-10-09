@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/pedrofurtado/cocoon.git
+  revision: 79f941a0fe18c447287d9a2e9673d28a7fcfa9ec
+  specs:
+    cocoon (1.2.14)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -240,6 +246,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  cocoon!
   dotenv-rails
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)

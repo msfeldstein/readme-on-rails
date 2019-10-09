@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'login', to: "login#index"
   get 'welcome/index'
-  resources :books
+  get 'new', to: "postings#new"
   resources :users, path: '/', param: :username do
     resources :shelves
     resources :postings

@@ -1,28 +1,30 @@
 
 = form_for [current_user, @post] do |posting_form|
-  = posting_form.fields_for :book do |book_form|
-    %p
-      = book_form.label :title
-      = book_form.text_field :title
-  
-    %p
-      = book_form.label :author
-      = book_form.text_field :author 
-  = posting_form.fields_for :shelf, Shelf.new do |shelf_form|
-    %p
-      = shelf_form.label :shelf
-      = shelf_form.select :name, options_for_select(@shelf_names, @post.shelf.name), {}, :class => "shelf-name-select"
-    %p#new-shelf-field
-      = shelf_form.label " - "
-      = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
+  .fields
+    = posting_form.fields_for :book do |book_form|
+      %p
+        = book_form.label :title
+        = book_form.text_field :title
+    
+      %p
+        = book_form.label :author
+        = book_form.text_field :author 
+    = posting_form.fields_for :shelf, Shelf.new do |shelf_form|
+      %p
+        = shelf_form.label :shelf
+        = shelf_form.select :name, options_for_select(@shelf_names, @post.shelf.name), {}, :class => "shelf-name-select"
+      %p#new-shelf-field
+        = shelf_form.label " - "
+        = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
+    #notes
+      = posting_form.fields_for :notes do |note_form|
+        = render 'note_fields', f: note_form
+    = link_to_add_association 'New Quote', posting_form, :notes, wrap_object: Proc.new {|n| n.note_type = "quote"; n}, :"data-association-insertion-node" => "#notes", :"data-association-insertion-method" => "append"
+    = " - "
+    = link_to_add_association 'New Note', posting_form, :notes, wrap_object: Proc.new {|n| n.note_type = "note"; n}, :"data-association-insertion-node" => "#notes", :"data-association-insertion-method" => "append"
   %p
-    = posting_form.label :note
-    = posting_form.text_area :note
-  %p
-    = posting_form.label :quote
-    = posting_form.text_area :quote
-  %p
-    = posting_form.submit("Save")
+    = link_to "Save", "#", :onclick => "this.closest('form').submit()"
+    = link_to "Cancel", @post
 
 :javascript
   var shelfField = document.querySelector(".shelf-name-select")

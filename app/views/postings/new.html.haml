@@ -1,5 +1,5 @@
 
-= form_for [current_user, @posting] do |posting_form|
+= form_for [current_user, @post] do |posting_form|
   = posting_form.fields_for :book do |book_form|
     %p
       = book_form.label :title
@@ -15,12 +15,11 @@
     %p#new-shelf-field
       = shelf_form.label " - "
       = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
-  %p
-    = posting_form.label :note
-    = posting_form.text_area :note
-  %p
-    = posting_form.label :quote
-    = posting_form.text_area :quote
+    #notes
+    = link_to_add_association 'New Quote', posting_form, :notes, wrap_object: Proc.new {|n| n.note_type = "quote"; n}, :"data-association-insertion-node" => "#notes", :"data-association-insertion-method" => "append"
+    = " - "
+    = link_to_add_association 'New Note', posting_form, :notes, wrap_object: Proc.new {|n| n.note_type = "note"; n}, :"data-association-insertion-node" => "#notes", :"data-association-insertion-method" => "append"
+
   %p
     = posting_form.submit("Post Book")
 

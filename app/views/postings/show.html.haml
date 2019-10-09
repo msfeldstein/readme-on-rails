@@ -9,10 +9,9 @@
     .finished-on= @post.finished_on.strftime("%F")
   - for note in @post.notes
     - if note.quote?
-      .quote= note.body
+      .note-group.quote= note.body
     - if note.note?
-      .note= note.body
+      .note-group.note= note.body
 
-  = "Shelf: #{@post.shelf.name}"
 - if @user == current_user
   = link_to "Edit", edit_user_posting_path(current_user, @post)

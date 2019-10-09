@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_10_08_225150) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer "note_type"
+    t.integer "note_type", default: 0, null: false
     t.text "body"
     t.integer "posting_id", null: false
     t.datetime "created_at", precision: 6, null: false
