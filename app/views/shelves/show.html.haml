@@ -11,5 +11,5 @@
     .book
       = link_to posting.book.title, posting
       .author= posting.book.author
-      - if posting.quote
-        .quote= posting.quote
+      - for note in posting.notes
+        .quote= note.body
