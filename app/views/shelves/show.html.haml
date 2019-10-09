@@ -5,7 +5,8 @@
 
 
 .book-list
-  = link_to "+ Add Book", new_posting_path(shelf: @shelf.name), class: "add-book-button"
+  - if @user == current_user
+    = link_to "+ Add Book", new_posting_path(shelf: @shelf.name), class: "add-book-button"
   - for posting in @postings
     .book
       = link_to posting.book.title, posting
