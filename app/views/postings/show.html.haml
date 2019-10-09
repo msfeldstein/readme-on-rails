@@ -7,8 +7,12 @@
   .author= @book.author
   - if @post.finished_on
     .finished-on= @post.finished_on.strftime("%F")
-  .quote= @post.quote
-  .note= @post.note
+  - for note in @post.notes
+    - if note.quote?
+      .quote= note.body
+    - if note.note?
+      .note= note.body
+
   = "Shelf: #{@post.shelf.name}"
 - if @user == current_user
   = link_to "Edit", edit_user_posting_path(current_user, @post)

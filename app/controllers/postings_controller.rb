@@ -34,6 +34,7 @@ class PostingsController < ApplicationController
     if (shelf_name == "-1")
       shelf_name = new_shelf_params[:new_shelf_name]
     end
+    @posting.update_attributes(posting_params)
     @posting.shelf = current_user.shelves.find_or_create_by(name: shelf_name)
     @posting.save!
     redirect_to @posting
@@ -48,7 +49,7 @@ class PostingsController < ApplicationController
 
   private
   def posting_params
-    post_params = params.require(:posting).permit(:quote, book_attributes: [:title, :author], shelf_attributes: [:name])
+    params.require(:posting).permit(:quote, :note, book_attributes: [:title, :author], shelf_attributes: [:name])
   end
   def new_shelf_params
     params.permit(:new_shelf_name)
