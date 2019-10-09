@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'login', to: "login#index"
   get 'welcome/index'
-  get 'new', to: "postings#new"
+  get 'new', to: "postings#new", as: "new_posting"
   resources :users, path: '/', param: :username do
     resources :shelves
     resources :postings
