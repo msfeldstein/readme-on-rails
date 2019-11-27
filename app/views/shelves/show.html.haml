@@ -2,14 +2,17 @@
   = link_to "@#{@user.username}", @user
   = "/"
   = @shelf.name
+  - if @user == current_user
+    = "/"
+    = link_to "+ Add Book", new_posting_path(shelf: @shelf.name), class: "add-book-button"
+
+
 
 
 .book-list
-  - if @user == current_user
-    = link_to "+ Add Book", new_posting_path(shelf: @shelf.name), class: "add-book-button"
   - for posting in @postings
     .book
       = link_to posting.book.title, posting
       .author= posting.book.author
       - for note in posting.notes
-        .quote= note.body
+        .quote= simple_format(note.body.truncate(300, separator: /\s/))

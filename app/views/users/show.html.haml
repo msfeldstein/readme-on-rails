@@ -22,9 +22,9 @@
   })
 
 
--if @user == current_user
-  = form_with(url: {action: :upload_csv}, multipart: true) do
-    %label{:for => "books"}
-      Import from Goodreads
-    = file_field_tag 'books'
-    = submit_tag("Upload")
+-# -if @user == current_user
+-#   = form_with(url: {action: :upload_csv}, multipart: true) do
+-#     %label{:for => "books"}
+-#       Import from Goodreads
+-#     = file_field_tag 'books'
+-#     = submit_tag("Upload")

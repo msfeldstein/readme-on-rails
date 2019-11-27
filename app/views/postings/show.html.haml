@@ -11,9 +11,9 @@
     .notes-title= "Notes and Quotes"
     - for note in @post.notes
       - if note.quote?
-        .note-group.quote= note.body
+        .note-group.quote= simple_format(note.body)
       - if note.note?
-        .note-group.note= note.body
+        .note-group.note= simple_format(note.body)
 
 - if @user == current_user
   = link_to "Edit", edit_user_posting_path(current_user, @post)

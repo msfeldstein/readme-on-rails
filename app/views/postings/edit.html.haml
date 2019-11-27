@@ -1,4 +1,9 @@
-
+.breadcrumb
+  = link_to "@#{@post.user.username}", @user
+  = "/"
+  = link_to "#{@post.shelf.name}", @shelf
+  = "/"
+  = link_to @post.book.title, @post
 = form_for [current_user, @post] do |posting_form|
   .fields
     = posting_form.fields_for :book do |book_form|
