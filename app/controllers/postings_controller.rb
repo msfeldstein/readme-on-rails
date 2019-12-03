@@ -41,6 +41,7 @@ class PostingsController < ApplicationController
     end
     @post.update_attributes(posting_params)
     @post.shelf = current_user.shelves.find_or_create_by(name: shelf_name)
+    @post.touch
     @post.save!
     redirect_to @post
   end
@@ -54,6 +55,7 @@ class PostingsController < ApplicationController
   private
   def posting_params
     params.require(:posting).permit(
+      :cover,
       book_attributes: [:id, :title, :author],
       shelf_attributes: [:id, :name],
       notes_attributes: [:id, :body, :note_type, :_destroy])

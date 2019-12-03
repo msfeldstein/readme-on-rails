@@ -3,6 +3,7 @@ class Posting < ApplicationRecord
   belongs_to :book
   belongs_to :shelf
   has_many :notes
+  mount_uploader :cover, ImageUploader
 
   accepts_nested_attributes_for :book
   accepts_nested_attributes_for :shelf

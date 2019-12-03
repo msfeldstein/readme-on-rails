@@ -21,6 +21,7 @@
       %p#new-shelf-field
         = shelf_form.label " - "
         = text_field_tag :new_shelf_name, nil, :placeholder => "New Shelf Name"
+    = posting_form.file_field :cover
     #notes
       = posting_form.fields_for :notes do |note_form|
         = render 'note_fields', f: note_form
