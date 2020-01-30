@@ -2,7 +2,7 @@ class Posting < ApplicationRecord
   belongs_to :user
   belongs_to :book
   belongs_to :shelf
-  has_many :notes
+  has_many :notes, dependent: :destroy
   mount_uploader :cover, ImageUploader
 
   accepts_nested_attributes_for :book
